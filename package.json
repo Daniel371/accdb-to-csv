@@ -1,0 +1,69 @@
+{
+	"name": "accdb-to-csv",
+	"version": "0.0.1",
+	"main": "dist-electron/main/index.js",
+	"description": "Export data from Ms Access to CSV",
+	"author": "Dainis Lubgans",
+	"license": "MIT",
+	"private": true,
+	"debug": {
+		"env": {
+			"VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
+		}
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build && electron-builder",
+		"preview": "vite preview",
+		"e2e": "npx playwright test"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.29.2",
+		"@types/react": "^18.0.27",
+		"@types/react-dom": "^18.0.10",
+		"@typescript-eslint/eslint-plugin": "^5.51.0",
+		"@vitejs/plugin-react": "^3.0.1",
+		"electron": "^22.0.3",
+		"electron-builder": "^22.10.3",
+		"eslint": "^8.33.0",
+		"eslint-config-standard-with-typescript": "^34.0.0",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-n": "^15.6.1",
+		"eslint-plugin-promise": "^6.1.1",
+		"eslint-plugin-react": "^7.32.2",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.1.0",
+		"prettier": "^2.8.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"sass": "^1.57.1",
+		"typescript": "^4.9.5",
+		"vite": "^4.0.4",
+		"vite-electron-plugin": "^0.7.4",
+		"vite-plugin-electron-renderer": "^0.11.4"
+	},
+	"engines": {
+		"node": "^14.18.0 || >=16.0.0"
+	},
+	"dependencies": {
+		"@emotion/react": "^11.10.5",
+		"@emotion/styled": "^11.10.5",
+		"@mui/icons-material": "^5.11.0",
+		"@mui/material": "^5.11.7",
+		"vite-tsconfig-paths": "^4.0.5"
+	},
+	"lint-staged": {
+		"src/**/*.{js,jsx,ts,tsx,json}": [
+			"eslint --fix"
+		],
+		"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+			"prettier --write"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	}
+}
