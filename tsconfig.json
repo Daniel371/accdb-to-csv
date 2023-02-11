@@ -19,32 +19,47 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./",
+    "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "modules": [
-        "src/modules",
-        "src/modules/*"
+      "modules/*": [
+        "modules/*"
       ],
       "components/*": [
-        "src/components",
-        "src/components/*"
+        "components/*"
       ],
-      "assets": [
-        "src/assets",
-        "src/assets/*"
+      "assets/*": [
+        "assets/*"
       ],
-      "theme": [
-        "src/theme",
-        "src/theme/*"
+      "backend/*": [
+        "backend/*"
+      ],
+      "contexts/*": [
+        "contexts/*"
+      ],
+      "hooks/*": [
+        "hooks/*"
+      ],
+      "types/*": [
+        "types/*"
+      ],
+      "utils/*": [
+        "utils/*"
+      ],
+      "theme/*": [
+        "theme/*"
+      ],
+      "routes/*": [
+        "routes/*"
       ],
     },
   },
   "include": [
-    "src"
+    "src/**/*",
+    "./electron/**/*",
+    ".eslintrc.cjs",
+    "vite.config.ts",
   ],
+  "exclude": [],
   "references": [
     {
       "path": "./tsconfig.node.json"

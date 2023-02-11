@@ -1,19 +1,28 @@
 import { createTheme } from '@mui/material/styles';
 
-const fonts = ["Poppins", "Roboto", "Helvetica", "Arial", "sans-serif"].join(
-  ",",
+const fonts = ['Poppins', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'].join(
+  ','
 );
 
-// A custom theme for this app
-const theme = createTheme({
+// Shared theme options
+const commonTheme = {
   typography: {
     fontFamily: fonts,
   },
+};
 
+// Light theme
+export const lightTheme = createTheme({
   palette: {
-    mode: "dark",
-  }
-
+    mode: 'light',
+  },
+  ...commonTheme,
 });
 
-export default theme;
+// Dark theme
+export const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+  ...commonTheme,
+});
