@@ -18,6 +18,9 @@ process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
   ? join(process.env.DIST_ELECTRON, '../public')
   : process.env.DIST;
 
+// Force GPU Acceleration for hihg performance GPU
+app.commandLine.appendSwitch('--force_high_performance_gpu', 'true');
+
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration();
 
@@ -51,16 +54,18 @@ async function createWindow() {
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
       // Consider using contextBridge.exposeInMainWorld
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false,
+      contextIsolation: true,
+      webSecurity: true,
+      sandbox: false,
     },
   });
 
   if (process.env.VITE_DEV_SERVER_URL) {
-    // electron-vite-vue#298
     win.loadURL(url!);
     // Open devTool if the app is not packaged
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools();
   } else {
     win.loadFile(indexHtml);
   }
@@ -106,8 +111,11 @@ ipcMain.handle('open-win', (_, arg) => {
   const childWindow = new BrowserWindow({
     webPreferences: {
       preload,
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false,
+      contextIsolation: true,
+      webSecurity: true,
+      sandbox: false,
     },
   });
 

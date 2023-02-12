@@ -37,5 +37,6 @@ module.exports = {
       },
     ],
     'react/jsx-props-no-spreading': 0,
+    'eslint-disable-next-line consistent-return': 0,
   },
 };

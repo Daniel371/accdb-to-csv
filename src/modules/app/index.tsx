@@ -1,6 +1,12 @@
 import { useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
-import { ThemeProvider, CssBaseline, Box, Container } from '@mui/material';
+import {
+  ThemeProvider,
+  CssBaseline,
+  Box,
+  Container,
+  Card,
+} from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -25,14 +31,19 @@ const App = () => {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
-      <Box sx={{ overflow: 'hidden' }}>
+      <Container
+        maxWidth="xl"
+        sx={{
+          height: '100vh',
+          overflow: 'hidden',
+        }}
+      >
         <AppBar
           ref={handleSetAppBarHeight}
           darkMode={darkMode}
           handleTogleTheme={handleTogleTheme}
         />
-        <Container
-          maxWidth="xl"
+        <Box
           component="main"
           sx={{
             minHeight: mainHeight,
@@ -41,8 +52,8 @@ const App = () => {
           }}
         >
           <Outlet />
-        </Container>
-      </Box>
+        </Box>
+      </Container>
       <ToastContainer />
     </ThemeProvider>
   );

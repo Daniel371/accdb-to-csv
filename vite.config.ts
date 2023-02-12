@@ -17,6 +17,10 @@ export default defineConfig(({ command }) => {
     resolve: {
       alias: [
         {
+          find: 'electron',
+          replacement: path.resolve(__dirname, './electron'),
+        },
+        {
           find: 'modules',
           replacement: path.resolve(__dirname, 'src/modules'),
         },
@@ -28,6 +32,7 @@ export default defineConfig(({ command }) => {
         { find: 'utils', replacement: path.resolve(__dirname, 'src/utils') },
         { find: 'theme', replacement: path.resolve(__dirname, 'src/theme') },
         { find: 'routes', replacement: path.resolve(__dirname, 'src/routes') },
+        { find: 'svg', replacement: path.resolve(__dirname, 'src/svg') },
       ],
     },
     plugins: [

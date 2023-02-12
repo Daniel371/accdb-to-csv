@@ -19,37 +19,43 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
+      "electron/*": [
+        "./electron/*"
+      ],
       "modules/*": [
-        "modules/*"
+        "src/modules/*"
       ],
       "components/*": [
-        "components/*"
+        "src/components/*"
       ],
       "assets/*": [
-        "assets/*"
+        "src/assets/*"
       ],
       "backend/*": [
-        "backend/*"
+        "src/backend/*"
       ],
       "contexts/*": [
-        "contexts/*"
+        "src/contexts/*"
       ],
       "hooks/*": [
-        "hooks/*"
+        "src/hooks/*"
       ],
       "types/*": [
-        "types/*"
+        "src/types/*"
       ],
       "utils/*": [
-        "utils/*"
+        "src/utils/*"
       ],
       "theme/*": [
-        "theme/*"
+        "src/theme/*"
       ],
       "routes/*": [
-        "routes/*"
+        "src/routes/*"
+      ],
+      "svg/*": [
+        "src/svg/*"
       ],
     },
   },
@@ -58,6 +64,7 @@
     "./electron/**/*",
     ".eslintrc.cjs",
     "vite.config.ts",
+    "src/window.d.ts",
   ],
   "exclude": [],
   "references": [
