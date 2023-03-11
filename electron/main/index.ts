@@ -19,10 +19,9 @@ process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
   : process.env.DIST;
 
 // Force GPU Acceleration for hihg performance GPU
-app.commandLine.appendSwitch('--force_high_performance_gpu', 'true');
+app.commandLine.appendSwitch('force_high_performance_gpu');
 
-// Disable GPU Acceleration for Windows 7
-if (release().startsWith('6.1')) app.disableHardwareAcceleration();
+app.disableHardwareAcceleration();
 
 // Set application name for Windows 10+ notifications
 if (process.platform === 'win32') app.setAppUserModelId(app.getName());

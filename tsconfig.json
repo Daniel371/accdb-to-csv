@@ -57,16 +57,23 @@
       "svg/*": [
         "src/svg/*"
       ],
+      "database": [
+        "database"
+      ],
+      "theme": [
+        "src/theme"
+      ],
+      "types": [
+        "src/types"
+      ],
     },
   },
   "include": [
     "src/**/*",
-    "./electron/**/*",
     ".eslintrc.cjs",
     "vite.config.ts",
     "src/window.d.ts",
   ],
-  "exclude": [],
   "references": [
     {
       "path": "./tsconfig.node.json"

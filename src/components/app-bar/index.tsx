@@ -1,4 +1,5 @@
 import { useState, forwardRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Switch,
   IconButton,
@@ -9,6 +10,8 @@ import {
   ListItemIcon,
   AppBar as MuiAppBar,
   Toolbar,
+  Button,
+  Typography,
 } from '@mui/material';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -17,6 +20,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 import DarkModeSwitch from 'components/dark-mode-switch';
 import Divider from '@mui/material/Divider';
@@ -27,6 +31,9 @@ interface Props {
 }
 
 const AppBar = forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const location = useLocation();
+  const title = location.state?.title || '';
+  const navigate = useNavigate();
   const { darkMode, handleTogleTheme } = props;
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -37,6 +44,12 @@ const AppBar = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const isHome = location.pathname === '/';
+  const handleNavigateBack = () => {
+    navigate(-1);
+  };
+
   return (
     <MuiAppBar
       ref={ref}
@@ -45,13 +58,33 @@ const AppBar = forwardRef<HTMLDivElement, Props>((props, ref) => {
       sx={{ boxShadow: 'none' }}
     >
       <Toolbar
+        disableGutters
+        variant="dense"
         sx={{
           display: 'flex',
-          flexDirection: 'row-reverse',
+          flexWrap: 'nowrap',
           alignItems: 'center',
+          justifyContent: isHome ? 'flex-end' : 'space-between',
+          pl: 0,
+          pr: 0,
         }}
       >
-        <IconButton onClick={handleClick} size="large" color="primary">
+        {!isHome && (
+          <>
+            <Button
+              onClick={handleNavigateBack}
+              size="large"
+              color="primary"
+              startIcon={<ArrowBackRoundedIcon />}
+            >
+              Back
+            </Button>
+
+            <Typography color="primary">{title}</Typography>
+          </>
+        )}
+
+        <IconButton onClick={handleClick} color="primary">
           <SettingsRoundedIcon fontSize="large" />
         </IconButton>
         <Popover

@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import grey from '@mui/material/colors/grey';
 
 const fonts = ['Poppins', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'].join(
   ','
@@ -30,6 +31,9 @@ const commonTheme = {
 export const lightTheme = createTheme({
   palette: {
     mode: 'light',
+    background: {
+      default: grey[100],
+    },
   },
   ...commonTheme,
 });

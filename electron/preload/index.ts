@@ -1,9 +1,13 @@
 import { contextBridge } from 'electron';
-import { getDatabases, addDatabase } from '../database/db-manager';
+import { getDatabases, addDatabase, deleteDatabase } from '../db-manager';
+import { getTableNames, getTableColumns } from '../ms-access-manager/api';
 
 const API = {
   getDatabases,
   addDatabase,
+  deleteDatabase,
+  getTableNames,
+  getTableColumns,
 };
 
 contextBridge.exposeInMainWorld('app', API);

@@ -1,43 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   InputAdornment,
   Stack,
   TextField,
-  Dialog,
-  DialogContent,
-  DialogActions,
   List,
-  ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   IconButton,
   Divider,
 } from '@mui/material';
-
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import FolderOpenRoundedIcon from '@mui/icons-material/FolderOpenRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 import DatabaseIcon from 'svg/database-icon';
+import type { AccessDb, AccessDbList } from 'types/database';
+import showToast from 'utils/toast';
+import AddDatabaseDialog from './components/add-database-dialog';
 
 const DBManager = () => {
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const [addDbOpen, setAddDbOpen] = useState<boolean>(false);
+  const [databases, setDatabases] = useState<AccessDbList>([]);
 
   useEffect(() => {
-    // @ts-ignore
-    window.app.getDatabases().then((dbs) => console.log(dbs));
+    window.app.getDatabases().then((dbs: AccessDbList) => setDatabases(dbs));
   }, []);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleAddDbOpen = () => setAddDbOpen(true);
+  const handleAddDbClose = (newDb: AccessDb | null = null) => {
+    if (newDb) {
+      setDatabases((prevDbs) => [...prevDbs, newDb]);
+      showToast(`${newDb.name} added!`, 'success');
+    }
+    setAddDbOpen(false);
+  };
+
+  const handleDeleteDb = (id: number, name: string) => {
+    window.app.deleteDatabase(id).then(() => {
+      setDatabases((prevDbs) => prevDbs.filter((db) => db.id !== id));
+      showToast(`${name} deleted!`, 'success');
+    });
+  };
+
+  const handleNavigateToDbPreview = (dbName: string, dbPath: string) => {
+    navigate('/database', { state: { dbName, dbPath, title: dbName } });
+  };
+
   return (
     <>
       {/* Open dialog */}
       <Stack direction="row" justifyContent="space-between">
         <TextField
-          label="Search"
+          label="Filter"
           sx={{ width: 300 }}
           InputProps={{
             startAdornment: (
@@ -50,7 +68,7 @@ const DBManager = () => {
         <Button
           variant="contained"
           startIcon={<AddRoundedIcon />}
-          onClick={handleOpen}
+          onClick={handleAddDbOpen}
         >
           Add Database
         </Button>
@@ -58,69 +76,30 @@ const DBManager = () => {
 
       {/* List of connections */}
       <List>
-        <ListItem
-          secondaryAction={
-            <IconButton color="error">
-              <DeleteRoundedIcon />
-            </IconButton>
-          }
-        >
-          <ListItemIcon>
-            <DatabaseIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Database 1"
-            secondary="C:\Users\user\database1.db"
-          />
-        </ListItem>
-        <Divider />
-        <ListItem
-          secondaryAction={
-            <IconButton color="error">
-              <DeleteRoundedIcon />
-            </IconButton>
-          }
-        >
-          <ListItemIcon>
-            <DatabaseIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Database 2"
-            secondary="C:\Users\user\database2.db"
-          />
-        </ListItem>
-        <Divider />
+        {databases.map((db) => (
+          <Fragment key={db.id}>
+            <ListItemButton
+              onClick={() => handleNavigateToDbPreview(db.name, db.path)}
+            >
+              <ListItemIcon>
+                <DatabaseIcon />
+              </ListItemIcon>
+              <ListItemText primary={db.name} secondary={db.path} />
+              <IconButton
+                color="error"
+                onClick={() => handleDeleteDb(db.id, db.name)}
+              >
+                <DeleteRoundedIcon />
+              </IconButton>
+            </ListItemButton>
+
+            <Divider />
+          </Fragment>
+        ))}
       </List>
 
-      {/* Dialog to add new connection */}
-      <Dialog open={open} onClose={handleClose}>
-        <DialogContent>
-          <Stack spacing={2}>
-            <TextField label="Database Name" sx={{ width: 300 }} />
-
-            <TextField
-              sx={{ flex: 1 }}
-              label="Database Path"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FolderOpenRoundedIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Stack>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            color="success"
-            startIcon={<AddRoundedIcon />}
-          >
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {/* Dialog to add new ms_access db */}
+      <AddDatabaseDialog open={addDbOpen} handleClose={handleAddDbClose} />
     </>
   );
 };

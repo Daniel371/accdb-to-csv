@@ -90,3 +90,23 @@ h6 {
   border-radius: 10px;
   background-color: rgb(83, 83, 83);
 }
+
+.Toastify__toast-theme--colored.Toastify__toast--default {
+  background-color: #42a5f5
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--info {
+  background-color: #42a5f5
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  background-color: #388e3c
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+  background-color: #f57c00
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  background-color: #d32f2f
+}

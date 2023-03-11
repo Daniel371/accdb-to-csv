@@ -1,12 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
-import {
-  ThemeProvider,
-  CssBaseline,
-  Box,
-  Container,
-  Card,
-} from '@mui/material';
+import { ThemeProvider, CssBaseline, Box, Container } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -36,6 +30,7 @@ const App = () => {
         sx={{
           height: '100vh',
           overflow: 'hidden',
+          backgroundColor: 'rgba(255, 255, 255, 0.01)',
         }}
       >
         <AppBar
@@ -46,6 +41,7 @@ const App = () => {
         <Box
           component="main"
           sx={{
+            pt: 2,
             minHeight: mainHeight,
             maxHeight: mainHeight,
             overflow: 'auto',

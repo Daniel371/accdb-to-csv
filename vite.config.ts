@@ -33,6 +33,8 @@ export default defineConfig(({ command }) => {
         { find: 'theme', replacement: path.resolve(__dirname, 'src/theme') },
         { find: 'routes', replacement: path.resolve(__dirname, 'src/routes') },
         { find: 'svg', replacement: path.resolve(__dirname, 'src/svg') },
+        { find: 'database', replacement: path.resolve(__dirname, 'database') },
+        { find: 'types', replacement: path.resolve(__dirname, 'src/types') },
       ],
     },
     plugins: [
@@ -49,6 +51,7 @@ export default defineConfig(({ command }) => {
                 customStart(
                   // eslint-disable-next-line @typescript-eslint/no-use-before-define
                   debounce(() =>
+                    // eslint-disable-next-line no-console
                     console.log(
                       /* For `.vscode/.debug.script.mjs` */ '[startup] Electron App'
                     )
@@ -78,7 +81,7 @@ export default defineConfig(({ command }) => {
   };
 });
 
-function debounce<Fn extends (...args: any[]) => void>(
+function debounce<Fn extends (...args: unknown[]) => void>(
   fn: Fn,
   delay = 299
 ): Fn {

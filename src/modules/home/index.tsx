@@ -14,15 +14,15 @@ const Home = () => {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange}>
-          <Tab label="Tasks" />
           <Tab label="Databases" />
+          <Tab label="Tasks" />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Item One
+        <DBManager />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <DBManager />
+        Item One
       </TabPanel>
     </Box>
   );
